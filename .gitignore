@@ -1,0 +1,18 @@
+# ambiente e cache do Python
+.venv/
+__pycache__/
+
+
+dados/
+analise/resultados/
+
+# arquivos gerados pelo LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.out
+*.toc
+*.bbl
+*.blg

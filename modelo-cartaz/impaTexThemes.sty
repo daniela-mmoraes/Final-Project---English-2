@@ -1,0 +1,98 @@
+% =====================================================================
+% DICIONÁRIO DE TEMAS
+% ---------------------------------------------------------------------
+% Define as paletas de cores e as mapeia do para as variáveis nativas 
+% do TikZposter.
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{impaTexThemes}[2026/06/15 Dynamic Palette Macros]
+
+\RequirePackage{ifthen}
+\RequirePackage{impaTechColors}
+% tikzposter class required
+
+% ==================================================
+% Definição dinâmica de temas
+% ==================================================
+% Standard color definitions
+\colorlet{impaCanvas}{white}
+\colorlet{impaTitleBG}{beige}
+\colorlet{impaTextFG}{black}
+\colorlet{impaBlockBG}{beige}
+\colorlet{impaTextTitle}{black}
+\colorlet{impaBorderBlock}{black}
+\colorlet{TitleColor}{black}
+
+
+% Conditional palette definitios
+\ifthenelse{\equal{\impa@palette}{green}}{
+    \colorlet{impaTitleBG}{green}
+    \colorlet{impaBlockBG}{green50}
+}{
+\ifthenelse{\equal{\impa@palette}{pink}}{
+    \colorlet{impaTitleBG}{pink}
+    \colorlet{impaBlockBG}{pink50}
+}{
+\ifthenelse{\equal{\impa@palette}{orange}}{
+    \colorlet{impaTitleBG}{orange}
+    \colorlet{impaBlockBG}{orange50}
+}{
+\ifthenelse{\equal{\impa@palette}{yellow}}{
+    \colorlet{impaTitleBG}{yellow}
+    \colorlet{impaBlockBG}{yellow50}
+}{
+\ifthenelse{\equal{\impa@palette}{none}}{
+    \colorlet{impaCanvas}{white}
+    \colorlet{impaTitleBG}{white}
+    \colorlet{impaBlockBG}{white}
+    \colorlet{impaBorderBlock}{white}
+}{
+    % paleta basic
+    \colorlet{impaTitleBG}{beige}
+    \colorlet{impaBlockBG}{beige}
+}}}}}
+
+
+% Dark mode palette overide
+\ifthenelse{\equal{\impa@mode}{dark}}{
+    \colorlet{impaCanvas}{black}
+    \colorlet{impaTextFG}{white}
+    \colorlet{impaTextTitle}{white}
+    \colorlet{impaBorderBlock}{black}
+    \colorlet{TitleColor}{white}
+
+    \ifthenelse{\equal{\impa@palette}{none}}{
+        \colorlet{impaTitleBG}{black}
+        \colorlet{impaBlockBG}{black}
+    }{
+        \ifthenelse{\equal{\impa@palette}{basic}}{
+            \colorlet{impaTitleBG}{gray}
+            \colorlet{impaBlockBG}{black!80}
+            \colorlet{impaBorderBlock}{black!80}
+        }{
+            \colorlet{impaTextFG}{black}
+%            \colorlet{impaTextColor}{black}
+        }
+    }
+}{}
+
+% ==================================================
+% Mapeamento para variáveis do tikzposter
+% ==================================================
+\definecolorstyle{impaThemeColors}{}{
+    \colorlet{backgroundcolor}{impaCanvas}
+    \colorlet{framecolor}{impaBorderBlock}
+    \colorlet{titlebgcolor}{impaTitleBG}
+    \colorlet{titlefgcolor}{impaTextTitle}
+    \colorlet{blocktitlebgcolor}{impaTitleBG}
+    \colorlet{blocktitlefgcolor}{TitleColor}
+    \colorlet{blockbodybgcolor}{impaBlockBG}
+    \colorlet{blockbodyfgcolor}{impaTextFG}
+}
+
+\usetheme{Basic}
+\usecolorstyle{impaThemeColors}
+\colorlet{titlebgcolor}{impaTitleBG}
+\colorlet{titlefgcolor}{impaTextTitle}
+
+\endinput

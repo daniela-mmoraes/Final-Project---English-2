@@ -1,0 +1,1 @@
+$ENV{'TEXINPUTS'} = '..//' . $search_path_separator . ($ENV{'TEXINPUTS'} || '');
