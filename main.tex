@@ -7,7 +7,7 @@
 \def\input@path{{./}{modelo-cartaz/}}
 \makeatother
 
-\documentclass[palette=basic,mode=light]{impaTeXPoster}
+\documentclass[palette=none,mode=light]{impaTeXPoster}
 
 % Procura imagens primeiro na pasta do projeto, depois na do template
 \graphicspath{{./}{images/}{modelo-cartaz/}}
@@ -33,13 +33,18 @@
 % ==========================================
 \column{0.5}
 
-\begin{postercard}{Introduction}
+\begin{postercard}[yellow50, yellow50, black, black,black]{Introduction}
 Este é um exemplo de seção usando a classe ImpaTeXPoster.
 
 \lipsum[1]
 \end{postercard}
 
-\begin{postercard}{Objetivo}
+\plainblock{{\textbf{Historical Remark!}}
+The modern notion of compactness emerged gradually from the work of
+Bolzano, Weierstrass, Borel, and Lebesgue during the nineteenth century.
+}
+
+\begin{postercard}[pink50, pink50, black, black,black]{Objetivo}
 Mostrar como usar diferentes cores no ambiente.
 
 \lipsum[2]
@@ -50,7 +55,7 @@ Mostrar como usar diferentes cores no ambiente.
 % ==========================================
 \column{0.5}
 
-\begin{postercard}{Resultados}
+\begin{postercard}[orange50, orange50, black, black,black]{Resultados}
 \lipsum[3]
 \end{postercard}
 
@@ -59,7 +64,7 @@ Mostrar como usar diferentes cores no ambiente.
 % terceiro parâmetro é cor do texto
 % quarto parâmetro é a borda do postercard
 
-\begin{postercard}{Metodologia}
+\begin{postercard}[green50, green50, black, black,black]{Metodologia}
 \lipsum[4]
 \end{postercard}
 
@@ -70,7 +75,7 @@ Mostrar como usar diferentes cores no ambiente.
 %Left Column
 \column{0.33}
 
-\begin{postercard}{Metodologia}
+\begin{postercard}[green50, green50, black, black,black]{Metodologia}
 \lipsum[5]
 \end{postercard}
 
