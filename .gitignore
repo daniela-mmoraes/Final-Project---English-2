@@ -2,10 +2,8 @@
 .venv/
 __pycache__/
 
-
-dados/
 analise/resultados/
-
+*.csv
 # arquivos gerados pelo LaTeX
 *.aux
 *.fdb_latexmk
@@ -16,3 +14,4 @@ analise/resultados/
 *.toc
 *.bbl
 *.blg
+*.pdf
