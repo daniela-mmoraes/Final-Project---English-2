@@ -2,7 +2,6 @@
 .venv/
 __pycache__/
 
-analise/resultados/
 *.csv
 # arquivos gerados pelo LaTeX
 *.aux
