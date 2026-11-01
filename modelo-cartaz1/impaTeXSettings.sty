@@ -1,0 +1,48 @@
+% =====================================================================
+% MACROS DE CONFIGURAÇÃO
+% ---------------------------------------------------------------------
+% Defini comandos simples para o usuário editar o poster rapidamente.
+% =====================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{impaTexSettings}[2026/06/17 Custom global settings commands]
+
+% ==================================================
+% GLOBAL MACRO: Change Block Border Color
+% ==================================================
+% Usage: \setposterborder{red} or \setposterborder{black!50}
+\newcommand{\setposterborder}[1]{%
+    \colorlet{impaBorderBlock}{#1}%
+    \colorlet{framecolor}{#1}%
+}%
+
+% ==================================================
+% CUSTOM BLOCK SHAPE: testStyle
+% ==================================================
+\defineblockstyle{testStyle}{
+    % Parâmetros de posição
+    titlewidthscale=1,       %
+    bodywidthscale=1,           %
+    titlecenter,                %
+    titleoffsetx=0pt,           %
+    titleoffsety=4mm,           %
+    bodyoffsetx=0pt,            %
+    bodyoffsety=0pt,            %
+    bodyverticalshift=0pt,      %
+    roundedcorners=0,           %
+    linewidth=1mm,              % largura do contorno
+    titleinnersep=4mm,          % altura da barrinha de fundo do titulo em cada bloco
+    bodyinnersep=5mm            %
+}{
+    % Desenho
+    % Corpo
+    \draw[color=blocktitlebgcolor, fill=blockbodybgcolor, line width=\blocklinewidth, rounded corners=2mm]
+        (blockbody.south west) rectangle (blockbody.north east);
+    % Título
+    \ifBlockHasTitle
+        \draw[draw=none, fill=blocktitlebgcolor, rounded corners=4mm]
+            (blocktitle.south west) rectangle (blocktitle.north east);
+    \fi
+}
+
+\endinput

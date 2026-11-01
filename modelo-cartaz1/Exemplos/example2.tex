@@ -1,0 +1,162 @@
+\documentclass[palette=none,mode=dark]{impaTeXPoster}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{amsfonts} 
+\usepackage{amssymb}
+
+
+\usepackage{scrextend}
+\changefontsizes[44pt]{36pt}
+
+%Adaṕtação para 9*16
+\geometry{paperwidth=90cm, paperheight=160cm}
+\makeatletter
+\setlength{\TP@visibletextwidth}{\textwidth-2\TP@innermargin}
+\setlength{\TP@visibletextheight}{\textheight-2\TP@innermargin}
+\makeatother
+
+% title
+\title{{\fontsize{80}{90}\selectfont A Critical Analysis of Branching Processes } }
+\subtitle{{\fontsize{60}{70}\selectfont The Galton-Watson Model}}
+\author{{\fontsize{40}{50}\selectfont Bruno P. de Paula, Giovani F. Mota}}
+\authoremail{{\fontsize{40}{50}\selectfont al.bruno.paula@impatech.edu.br, al.giovani.mota@impatech.edu.br}}
+\posterlogo{images/logos-impatech/padrao-dark.png}    % logo à esquerda
+\rightposterlogo{images/logos-impatech/padrao-dark.png} 
+\begin{document}
+
+% largura e altura de cada logo
+\leftlogosize{18cm}{12cm}
+\rightlogosize{18cm}{12cm}
+
+\maketitle
+
+\begin{columns}
+
+% ==========================================
+% LEFT COLUMN
+% ==========================================
+\column{0.5}
+
+\block{Introduction}{
+The Galton-Watson process is a fundamental tool in probabilistic mathematics. This mathematical construct was introduced by Galton and Watson in the 19th century, originally conceived to model the probability of hereditary surname extinction in England. However, their preliminary analysis yielded erroneous conclusions. In this work, we will critically re-examine their ideias in the first paper, comparing with modern results to identify the flaws in their investigation.
+}
+
+\block{Methodology}{
+This study analyzes the Galton-Watson paper by mapping its internal inconsistencies. We utilize three subsequent papers to highlight its flaws and apply modern results to demonstrate that the original paper's conclusions are erroneous.
+}
+
+\begin{postercard}{Critic Examination}
+This study analyzes the Galton-Watson paper by mapping its internal inconsistencies. We utilize three subsequent papers to highlight its flaws and apply modern results to demonstrate that the original paper's conclusions are erroneous.
+    \begin{itemize}
+        \item \textbf{Pioneering approach:} The original article represents the first attempt to formulate the problem of lineage extinction using probabilistic concepts.
+        \item \textbf{Limitations of the model:}
+        \begin{itemize}
+            \item Overlooks social and environmental influences on reproduction rates, assuming they are the same within a given family.
+            \item It assumed that different generations did not overlap and that the transition between them occurred in discrete time.
+            \item Focuses solely on male descendants, specifically in the subcritical case (average number of male offspring $<1$).
+        \end{itemize}
+        \item \textbf{Implications:} The model failed in its original purpose, suggesting extinction rates much lower than those observed in real populations.
+        \item \textbf{Historical significance:} Despite its limitations, the Galton-Watson model was later further developed and has been successfully applied to model phenomena in diverse scientific fields.
+    \end{itemize}
+\end{postercard}
+
+\begin{postercard}{Definitions}
+    
+    \begin{itemize}
+        \item \(Z_n\): size of the \(n\)-th generation (\(Z_0 = 1\))
+        \item \(p_k\): probability that an individual has \(k\) offspring
+        \item \(f(s)\): generating function of the offspring distribution
+        \item \(m\): mean number of offspring per individual
+        \item \(q\): extinction probability
+    \end{itemize}
+
+\end{postercard}
+
+\begin{postercard}{Trivial Case}
+    
+    \begin{itemize}
+        \item If \(p_0 = 0\), no individual can have zero offspring, hence \(q = 0\).
+        \item If \(p_0 > 0\) and \(p_1 = 1 - p_0\), each generation is at most the same size as the previous one, so the population inevitably dies out, hence \(q = 1\).
+        \item In all other cases, we assume \(p_0 > 0\) and \(p_i > 0\) for some \(i > 1\).
+    \end{itemize}
+
+\end{postercard}
+
+\begin{postercard}{Fundamental Lemas}
+
+    \begin{itemize}
+    
+    \item \textbf{Lemma 1.}  
+    The generating function $f_n$ of \(Z_n\) is the \(n\)-th iterate of \(f\):
+    \[
+    f_n(s) = f^{(n)}(s).
+    \]
+    
+    \item \textbf{Lemma 2.}  
+    The expected size of the \(n\)-th generation is
+    \[
+    \mathbb{E}[Z_n] = m^n.
+    \]
+    
+    \item \textbf{Lemma 3.}  
+    The function \(f\) has at most two fixed points in \([0,1]\) (i.e., points $x$ such that $f(x)=x$), with $q$ being the smaller one and $1$ the larger (not necessarily distinct).
+    
+    \end{itemize}
+
+\end{postercard}
+
+% ==========================================
+% RIGHT COLUMN
+% ==========================================
+\column{0.5}
+
+\begin{postercard}{Theorem — Extinction Criterion}
+
+If the mean number of offspring per individual satisfies \(m > 1\), then the extinction probability is strictly less than one (\(q < 1\)), meaning the population has a positive chance of survival.  
+If \(m \le 1\), then \(q = 1\), and extinction occurs almost surely.
+
+\end{postercard}
+
+\begin{postercard}{Outline of the Proof}
+
+\begin{enumerate}
+    \item To prove Lemma 1, use the rules of conditional expectation to express \(f_n\) in terms of \(f_{n-1}\). This allows a proof by induction.
+    \item Knowing the form of \(f_n\), an inductive proof of Lemma 2 can be obtained using the fact that \(\mathbb{E}[Z_n] = f'_n(1)\).
+    \item To prove Lemma 3, show that \(q = \lim f_n(0)\) is a fixed point of \(f\).
+    \item Use the monotonicity of \(f\) to prove that \(q\) is the smallest fixed point.
+    \item Assuming a non-trivial case, show that \(f\) is strictly convex and therefore has at most two fixed points.
+    \item Finally, to prove the Extinction Criterion, analyze the graph of \(f\) near \(s = 1\), considering the different cases according to the value of \(m\).
+\end{enumerate}
+
+\end{postercard}
+
+\plainblock{
+    \posterfigure{0.9}{images/model_example2.png}%
+    {The PGF $f(s)$ in the subcritical ($m < 1$), critical ($m = 1$), and supercritical ($m > 1$) cases.}{fig:galton_model}
+    \centering
+    \textbf{Figura 1:}
+}
+
+\begin{postercard}{Conclusion}
+
+\begin{enumerate}
+    \item \textbf{Extinction is not inevitable:} Modern mathematicians have proven that a population can survive indefinitely when the average number of offspring per individual exceeds 1, a case not studied by Galton and Watson, who considered only subcritical scenarios.
+    \item \textbf{New offspring distributions:} While the original paper examined cases with at most five offspring per individual, modern models allow arbitrary distributions: discrete, infinite, or even continuous, making the model applicable to more complex phenomena.
+    \item \textbf{Computational and numerical techniques:} Advances in both mathematical and computational tools enable the use of simulations and numerical methods to estimate population growth and extinction probabilities, often impractical to compute manually.
+\end{enumerate}
+
+\end{postercard}
+
+\block{References}{
+    \noindent [1] WATSON, H. W.; GALTON, F. On the probability of the extinction of families. \textit{The Journal of the Anthropological Institute of Great Britain and Ireland}, v. 4, p. 138--144, 1875.\\[0.5em]
+    \noindent [2] ALDOUS, D. Asymptotic fringe distributions for general families of random trees. \textit{The Annals of Applied Probability}, v. 1, n. 2, p. 228--266, 1991.\\[0.5em]
+    \noindent [3] GEIGER, J.; KERSTING, G. The Galton-Watson tree conditioned on its height. In: \textit{Probability Theory and Mathematical Statistics: Proceedings of the Seventh Vilnius Conference}. Frankfurt am Main: VSP/TEV, 1999. p. 277--286.\\[0.5em]
+    \noindent [4] JACOB, C. Branching Processes: Their Role in Epidemiology. \textit{International Journal of Environmental Research and Public Health}, v. 7, n. 3, p. 1186--1204, 2010.
+}
+
+\end{columns}
+
+\end{document}

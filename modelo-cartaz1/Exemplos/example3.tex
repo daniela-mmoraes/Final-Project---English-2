@@ -1,0 +1,100 @@
+\documentclass[palette=yellow,mode=light]{impaTeXPoster}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lipsum}
+
+\title{Poster Teste}
+\subtitle{Exemplo de subtítulo}
+\author{Bruno Pereira, Maria Silva, João Souza}
+\authoremail{bruno@impa.br, maria@impa.br, joao@impa.br}
+\posterlogo{images/impatech.png}    % logo à esquerda
+\rightposterlogo{images/tex.png}    % logo à direita
+
+\begin{document}
+\maketitle
+
+\begin{columns}
+
+% ==========================================
+% LEFT COLUMN
+% ==========================================
+\column{0.5}
+
+\begin{postercard}{Introdução}
+Este é um exemplo de seção usando a classe ImpaTeXPoster.
+
+\lipsum[1]
+\end{postercard}
+
+\begin{postercard}{Objetivo}
+Mostrar como usar diferentes cores no ambiente.
+
+\lipsum[2]
+\end{postercard}
+
+% ==========================================
+% RIGHT COLUMN
+% ==========================================
+\column{0.5}
+
+\begin{postercard}{Resultados}
+\lipsum[3]
+\end{postercard}
+
+% primeiro parâmetro é a cor do Fundo do título
+% segundo parâmetro é a cor do do testo
+% terceiro parâmetro é cor do texto
+% quarto parâmetro é a borda do postercard
+
+\begin{postercard}{Metodologia}
+\lipsum[4]
+\end{postercard}
+
+\end{columns}
+
+\begin{columns}
+
+%Left Column
+\column{0.33}
+
+\begin{postercard}{Metodologia}
+\lipsum[5]
+\end{postercard}
+
+%Middle Column
+\column{0.33}
+
+\begin{postercard}{Metodologia}
+\lipsum[6]
+\end{postercard}
+
+
+%Right Column
+\column{0.33}
+
+\begin{postercard}{Metodologia}
+\lipsum[7]
+\end{postercard}
+
+\end{columns}
+
+
+\posterfooter{https://github.com/impaTeX/modelo-cartaz/}{%
+
+    \textbf{{\LARGE Referências:}}
+
+    \begin{thebibliography}{99}
+    \bibitem{popper}
+    POPPER, Karl.
+    \textit{A lógica da pesquisa científica}.
+    São Paulo: Cultrix, 2002.
+
+    \bibitem{chalmers}
+    CHALMERS, A. F.
+    \textit{O que é ciência, afinal?}
+    São Paulo: Brasiliense, 1999.
+    \end{thebibliography}
+}
+
+\end{document}

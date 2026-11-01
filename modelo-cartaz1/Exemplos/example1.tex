@@ -1,0 +1,116 @@
+\documentclass[palette=basic,mode=light]{impaTeXPoster}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lipsum}
+
+\title{Poster Modelo de Exemplo}
+\subtitle{Exemplo de subtítulo}
+\author{Bruno Pereira, Igor Zwirtes, Marcos Melo}
+\authoremail{al.bruno.paula@impatech.edu.br, al.igor.zwirtes@impatech.edu.br, al.marcos.melo@impatech.edu.br}
+\posterlogo{images/impatech.png}    % logo à esquerda
+\rightposterlogo{images/impatex_png.png}    % logo à direita
+\begin{document}
+
+% largura e altura de cada logo
+\leftlogosize{20cm}{20cm}
+\rightlogosize{15cm}{10cm}
+
+\maketitle
+
+\useblockstyle{testStyle}
+
+\begin{columns}
+
+% ==========================================
+% COLUNA 1
+% ==========================================
+\column{0.5}
+
+%Postercard sem usar os 
+\begin{postercard}{Introdução}
+Este é um exemplo de seção usando a classe ImpaTeXPoster.
+\lipsum[1]
+\lipsum[1]
+\end{postercard}
+
+\plainblock{
+    \posterfigure{0.9}{images/lora.png}%
+        {Arquitetura utilizada para o treinamento com LoRA.}{fig:lora}
+}
+
+\begin{postercard}[orange400,white,black,black]{Objetivo}
+Mostrar como usar diferentes cores no ambiente.
+
+\lipsum[2]
+\end{postercard}
+
+\begin{postercard}[beige,pink,black,black]{Metodologia}
+Mostrar como usar diferentes cores no ambiente.
+
+\lipsum[2]
+\end{postercard}
+
+% ==========================================
+% COLUNA 2
+% ==========================================
+\column{0.5}
+
+\begin{postercard}[beige,white,blue,black, black]{Experimentos}
+%Este é um exemplo de seção usando a classe ImpaTeXPoster.
+\lipsum[1]
+\end{postercard}
+
+%\end{postercard}
+
+\plainblock{
+    \posterfigure{0.9}{images/llm.jpg}%
+        {Pipeline geral de \textit{text-to-SQL}.}{fig:llm}
+}
+
+\begin{postercard}[beige,white,black,black,green]{Resultados}
+Mostrar como usar diferentes cores no ambiente.
+
+\lipsum[2]
+\lipsum[1]
+\lipsum[3]
+\end{postercard}
+
+\end{columns}
+
+% Rodapé: QR code + referências completas (ABNT NBR 6023:2018)
+\posterfooter{https://github.com/impaTeX/modelo-cartaz/}{%
+
+    \textbf{{\LARGE Referências:}}
+
+    \begin{thebibliography}{99}
+
+    \bibitem{lora}
+    HU, E.~J\@. et al\@.
+    \textit{LoRA: Low-rank adaptation of large language models}.
+    arXiv preprint arXiv:2106.09685, 2021.
+
+    \bibitem{mimiciii}
+    JOHNSON, A.~E.~W\@. et al\@.
+    \textit{MIMIC-III, a freely accessible critical care database}.
+    v.~3, n.~160035, 2016.
+
+    \bibitem{mimicsql}
+    WANG, P\@.; SHI, T\@.; REDDY, C.~K\@.
+    \textit{Text-to-SQL generation for question answering on electronic medical records}.
+    New York: ACM, 2020. p.~350--361.
+
+    \bibitem{qwen25}
+    YANG, A\@. et al\@.
+    \textit{Qwen2.5 technical report}.
+    arXiv preprint arXiv:2412.15115, 2024.
+
+    \bibitem{spider}
+    YU, T\@. et al\@.
+    \textit{Spider: A large-scale human-labeled dataset for complex and cross-domain semantic parsing and text-to-SQL task}.
+    Brussels: Association for Computational Linguistics, 2018.
+
+    \end{thebibliography}
+}
+
+\end{document}

@@ -1,0 +1,129 @@
+\documentclass[palette=none,mode=light]{impaTeXPoster}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lipsum}
+\usepackage{amssymb}
+
+\title{Poster Teste}
+\subtitle{Exemplo de subtítulo}
+\author{Bruno Pereira, Maria Silva, João Souza}
+\authoremail{bruno@impa.br, maria@impa.br, joao@impa.br}
+\posterlogo{images/impatech.png}    % logo à esquerda
+\rightposterlogo{images/tex.png}    % logo à direita
+
+\begin{document}
+\maketitle
+
+\useblockstyle{testStyle}
+\begin{columns}
+
+% ==========================================
+% LEFT COLUMN
+% ==========================================
+\column{0.5}
+
+\begin{postercard}[yellow50, yellow50, black, yellow400,black]{Introdução}
+Este é um exemplo de seção usando a classe ImpaTeXPoster.
+\lipsum[1]
+\end{postercard}
+
+
+\begin{postercard}[pink50, pink50, black, pink400,black]{Objetivo}
+Mostrar como usar diferentes cores no ambiente.
+
+\lipsum[2]
+\end{postercard}
+
+\block{Definition}{
+A space $X$ is compact if every open cover admits a finite subcover.
+}
+
+\block{}{
+The notion of compactness evolved during the nineteenth century.
+
+\lipsum[1-2]
+}
+
+% ==========================================
+% RIGHT COLUMN
+% ==========================================
+\column{0.5}
+
+\block{Proposition}{
+Every compact subset of a Hausdorff space is closed.
+
+\lipsum[3]
+}
+
+
+\block{Corollary}{
+Compact subsets of \(\mathbb{R}^n\) are closed and bounded.
+}
+
+\block{}{
+    Proof. \\
+    \lipsum[3]
+
+}
+
+\begin{postercard}[green50, green50, black, green400,black]{Resultados}
+\lipsum[3]
+\end{postercard}
+
+% primeiro parâmetro é a cor do Fundo do título
+% segundo parâmetro é a cor do do testo
+% terceiro parâmetro é cor do texto
+% quarto parâmetro é a borda do postercard
+
+\begin{postercard}[orange50, orange50, black, orange400,black]{Metodologia}
+\lipsum[4]
+\end{postercard}
+
+\end{columns}
+
+\begin{columns}
+
+%Left Column
+\column{0.33}
+
+\begin{postercard}[yellow50, yellow50, black, yellow400,black]{Metodologia}
+\lipsum[5]
+\end{postercard}
+
+%Middle Column
+\column{0.33}
+
+\begin{postercard}[pink50, pink50, black, pink400,black]{Metodologia}
+\lipsum[6]
+\end{postercard}
+
+
+%Right Column
+\column{0.33}
+
+\begin{postercard}[green50, green50, black, green400,black]{Metodologia}
+\lipsum[7]
+\end{postercard}
+
+\end{columns}
+
+
+\posterfooter{https://github.com/impaTeX/modelo-cartaz/}{%
+
+    \textbf{{\LARGE Referências:}}
+
+    \begin{thebibliography}{99}
+    \bibitem{popper}
+    POPPER, Karl.
+    \textit{A lógica da pesquisa científica}.
+    São Paulo: Cultrix, 2002.
+
+    \bibitem{chalmers}
+    CHALMERS, A. F.
+    \textit{O que é ciência, afinal?}
+    São Paulo: Brasiliense, 1999.
+    \end{thebibliography}
+}
+
+\end{document}

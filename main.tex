@@ -4,17 +4,20 @@
 % também dentro de modelo-cartaz/
 % ==================================================
 \makeatletter
-\def\input@path{{./}{modelo-cartaz/}}
+\def\input@path{{./}{modelo-cartaz1/}}
 \makeatother
 
 \documentclass[palette=none,mode=light]{impaTeXPoster}
 
 % Procura imagens primeiro na pasta do projeto, depois na do template
-\graphicspath{{./}{images/}{modelo-cartaz/}}
+\graphicspath{{./}{images/}{modelo-cartaz1/}}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lipsum}
+
+% Marcador visível para o que ainda falta preencher (apagar quando terminar)
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[TO DO: #1]}}}
 
 \title{Abrupt Changes in School Enrollment in Brazilian Basic Education:}
 \subtitle{An Exploratory Analysis of INEP Data from 2011 to 2025}
@@ -28,15 +31,21 @@
 
 \begin{columns}
 
-% ==========================================
-% LEFT COLUMN
-% ==========================================
 \column{0.5}
 
 \begin{postercard}[yellow50, yellow50, black, black,black]{Introduction}
-Este é um exemplo de seção usando a classe ImpaTeXPoster.
+Enrollment is the most basic measure of a school's size, and Brazil's
+\textit{Censo Escolar}, conducted every year by INEP, records it for the
+country's basic education schools.
 
-\lipsum[1]
+A sudden drop or rise in a school's enrollment may signal a real event,
+such as a closure, a merger, or a crisis like the COVID-19 pandemic. But it
+may also point to inconsistencies in the official records. Telling these
+cases apart matters for anyone who relies on school-level data to study
+education in Brazil.
+
+This poster presents ongoing undergraduate research on where, when, and in
+which kinds of schools these abrupt changes occur.
 \end{postercard}
 
 \plainblock{
@@ -49,73 +58,110 @@ The modern notion of compactness emerged gradually from the work of
 Bolzano, Weierstrass, Borel, and Lebesgue during the nineteenth century.
 }
 
-\begin{postercard}[pink50, pink50, black, black,black]{Objetivo}
-Mostrar como usar diferentes cores no ambiente.
+\begin{postercard}[green50, green50, black, black,black]{Who Are the Flagged Schools?}
+The flagged schools are then characterized by region, state, school network,
+and location.
 
-\lipsum[2]
+\todo{findings, with figures}
 \end{postercard}
 
-% ==========================================
-% RIGHT COLUMN
-% ==========================================
 \column{0.5}
 
-\begin{postercard}[orange50, orange50, black, black,black]{Resultados}
-\lipsum[3]
+\begin{postercard}[orange50, orange50, black, black,black]{Data Sources}
+We combine two official INEP sources, which are complementary:
+\begin{itemize}
+  \item \textbf{Taxas de Rendimento Escolar:} school-level approval,
+  retention, and dropout rates. These are \textit{relative} values.
+  \item \textbf{Censo Escolar (microdata):} the \textit{absolute} number
+  of enrolled students, required to measure changes in school size.
+\end{itemize}
+Neither source is enough on its own: rates alone cannot show how large a
+school is, and counts alone say nothing about student flow.
+
+Both cover 2011 to 2025 and three stages of schooling: early elementary
+(AI), late elementary (AF), and high school (EM).
 \end{postercard}
 
-% primeiro parâmetro é a cor do Fundo do título
-% segundo parâmetro é a cor do do testo
-% terceiro parâmetro é cor do texto
-% quarto parâmetro é a borda do postercard
+\begin{postercard}[green50, green50, black, black,black]{Step 1: Rate Data}
+INEP's yearly files were converted to CSV and stacked into one table
+(65 columns, 2011--2025). We checked it against the official files, matching
+schools by code, and fixed:
+\begin{itemize}
+  \item columns shifted in 2011--2014, after INEP changed column names and
+  order;
+  \item school and municipality codes with an inconsistent number of digits;
+  \item missing values written as text (\texttt{nan}, \texttt{<NA>}),
+  now proper nulls.
+\end{itemize}
+\end{postercard}
 
-\begin{postercard}[green50, green50, black, black,black]{Metodologia}
-\lipsum[4]
+\begin{postercard}[green50, green50, black, black,black]{Step 2: Census Microdata}
+Each year has over 200,000 schools, and the file structure changes: one
+table (2011--2022), an extra technical-courses file (2023--2024), and six
+tables (2025), when enrollment moved to its own table.
+
+We matched equivalent columns across years using INEP's data dictionaries.
+Every suggested rename was reviewed by hand, since name similarity produced
+false matches. We kept 15 columns: identifiers plus regular and full-time
+enrollment for each stage.
+\end{postercard}
+
+\begin{postercard}[green50, green50, black, black,black]{Step 3: Merging the Sources}
+The two sources were joined by school code and year, with the rate data as
+the reference. Only schools present in both were kept (one 2025 school with
+no match was dropped).
+
+The registration fields shared by both sources were compared, and gaps and
+mismatches were filled from the other source. Six enrollment variables
+(regular and full-time, for the three stages) were then added.
+\end{postercard}
+
+\begin{postercard}[orange50, orange50, black, black,black]{Final Database}
+Rates were converted into student counts: total enrollment (regular +
+full-time) $\times$ rate $/\,100$, rounded. Municipality names were
+standardized using IBGE codes, and each stage was classified as Regular,
+Integral, or Mixed by its share of full-time enrollment.
+
+The final database has \textbf{27 variables}. Checks at every step found
+\textbf{no duplicate school-year records}, and \textbf{141,754 schools}
+appear in all 15 years.
+\end{postercard}
+
+\begin{postercard}[pink50, pink50, black, black,black]{Treating Anomalies}
+\begin{itemize}
+  \item \textbf{36 ``ghost'' schools} were removed.
+  \item Nulls and zeros were standardized.
+  \item \textbf{26 records} had exactly 1 enrolled student but no approved,
+  failed, or dropped-out students. Their enrollment was set to 0, since
+  transfers or typing errors are possible but cannot be confirmed.
+  \item Schools with 100\% dropout were kept and flagged for specific
+  analyses.
+\end{itemize}
+\end{postercard}
+
+\begin{postercard}[green50, green50, black, black,black]{Evolution Over Time}
+We follow how the abrupt changes evolve from 2011 to 2025, with special
+attention to the pandemic years of 2020 and 2021.
+
+\todo{findings, with figures}
 \end{postercard}
 
 \end{columns}
-
-\begin{columns}
-
-%Left Column
-\column{0.33}
-
-\begin{postercard}[green50, green50, black, black,black]{Metodologia}
-\lipsum[5]
-\end{postercard}
-
-%Middle Column
-\column{0.33}
-
-\begin{postercard}{Metodologia}
-\lipsum[6]
-\end{postercard}
-
-
-%Right Column
-\column{0.33}
-
-\begin{postercard}{Metodologia}
-\lipsum[7]
-\end{postercard}
-
-\end{columns}
-
 
 \posterfooter{https://github.com/impaTeX/modelo-cartaz/}{%
 
-    \textbf{{\LARGE Referências:}}
+    \textbf{{\LARGE References:}}
 
     \begin{thebibliography}{99}
-    \bibitem{popper}
-    POPPER, Karl.
-    \textit{A lógica da pesquisa científica}.
-    São Paulo: Cultrix, 2002.
+    \bibitem{censo}
+    INEP.
+    \textit{Censo Escolar da Educa\c{c}\~ao B\'asica} (microdata).
+    Bras\'ilia: Instituto Nacional de Estudos e Pesquisas Educacionais An\'isio Teixeira.
 
-    \bibitem{chalmers}
-    CHALMERS, A. F.
-    \textit{O que é ciência, afinal?}
-    São Paulo: Brasiliense, 1999.
+    \bibitem{taxas}
+    INEP.
+    \textit{Taxas de Rendimento Escolar}.
+    Bras\'ilia: Instituto Nacional de Estudos e Pesquisas Educacionais An\'isio Teixeira.
     \end{thebibliography}
 }
 

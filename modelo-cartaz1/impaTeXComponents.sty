@@ -1,0 +1,176 @@
+% =====================================================================
+% FORMATAÇÃO & AMBIENTES CUSTOMIZADOS
+% ---------------------------------------------------------------------
+% Contém os blocos customizados, comandos de figuras e formatação ABNT 
+% para listas/legendas.
+% =====================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{impaTexComponents}[2026/06/17 ImpaTex custom environments]
+
+\RequirePackage{tikz}
+\RequirePackage{xparse}
+\RequirePackage{ifthen}
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{caption}
+\RequirePackage{enumitem}
+% Tikzposter class required
+
+% ==================================================
+% POSTERCARD LAYOUT
+% ==================================================
+\ExplSyntaxOn
+\NewDocumentCommand{\parsepostercardcolors}{m}{
+  \int_zero:N \l_tmpa_int
+  \clist_map_inline:nn { #1 } {
+    \int_incr:N \l_tmpa_int
+    \int_case:nnF { \l_tmpa_int } {
+      { 1 } { \colorlet{customTitleBG}{##1} }
+      { 2 } { \colorlet{customTextBG}{##1} }
+      { 3 } { \colorlet{customTextFG}{##1} }
+      { 4 } { \colorlet{customBorderBlock}{##1} }
+      { 5 } { \colorlet{customTitleTextBlock}{##1} }
+    } { }
+  }
+}
+\ExplSyntaxOff
+
+\NewDocumentEnvironment{postercard}{O{} m +b}{
+    \begingroup
+    \ifthenelse{\equal{#1}{}}{
+        \colorlet{blocktitlebgcolor}{impaTitleBG}
+        \colorlet{blockbodybgcolor}{impaBlockBG}
+        \colorlet{blocktitlefgcolor}{TitleColor}
+        \colorlet{blockbodyfgcolor}{impaTextFG}
+        \colorlet{framecolor}{impaBorderBlock}
+    }{
+        \colorlet{customTitleBG}{impaTitleBG}
+        \colorlet{customTextBG}{impaBlockBG}
+        \colorlet{customTextFG}{impaTextFG}
+        \colorlet{customBorderBlock}{impaBorderBlock}
+        \colorlet{customTitleTextBlock}{TitleColor}
+        \parsepostercardcolors{#1}
+        \colorlet{blocktitlebgcolor}{customTitleBG}
+        \colorlet{blockbodybgcolor}{customTextBG}
+        \colorlet{blocktitlefgcolor}{customTitleTextBlock}
+        \colorlet{blockbodyfgcolor}{customTextFG}
+        \colorlet{framecolor}{customBorderBlock}
+    }
+    \block{#2}{#3}
+    \endgroup
+}
+{}
+
+% Bloco sem borda/fundo (para figuras soltas)
+\newcommand{\plainblock}[1]{
+    \begingroup
+    \colorlet{blockbodybgcolor}{backgroundcolor}
+    \colorlet{framecolor}{backgroundcolor}
+    \block{}{#1}
+    \endgroup
+}
+
+
+%Novo bloco com um parâmetro só
+\newcommand{\card}[3]{
+    \begingroup
+        \colorlet{blocktitlebgcolor}{#1}
+        \colorlet{blockbodybgcolor}{#1}
+    \block{#2}{#3}
+    \endgroup
+}
+
+% ==================================================
+% COMANDO \posterfigure — figura com legenda ABNT
+% ==================================================
+% tikzposter NÃO suporta floats (figure, table com [H] etc.).
+% Uma solução é o \captionof{figure}{...} do pacote caption,
+% que formata a legenda sem precisar do ambiente float.
+%
+% Uso: \posterfigure{largura}{arquivo}{legenda}{label}
+%
+%   largura : fração de \linewidth, ex: 0.85
+%   arquivo : caminho da imagem
+%   legenda : texto da legenda (sem numeração manual)
+%   label   : chave para \ref — use fig:nome
+
+\NewDocumentCommand{\posterfigure}{m m m m}{%
+    \begingroup
+    \centering
+    \includegraphics[width=#1\linewidth]{#2}\par
+    \captionof{figure}{#3}\label{#4}%
+    \endgroup
+}
+
+% ==================================================
+% LISTA DE ITENS
+% ==================================================
+% Espaçamento de lista (evitar blocos compactos demais)
+\setlist{
+    topsep    = 0.4em,
+    itemsep   = 0.2em,
+    parsep    = 0pt,
+    leftmargin= 1.8em
+}
+
+% ==================================================
+% LEGENDAS
+% ==================================================
+% Formato: "Figura N – Descrição" (travessão, não dois-pontos)
+% Fonte: menor que o texto, negrito no rótulo
+\RequirePackage{caption}
+\captionsetup{
+    format        = plain,
+    labelsep      = endash, % " – " entre rótulo e texto
+    font          = {normal}, % corpo da legenda menor
+    labelfont     = {normal, bf}, % "Figura N" em negrito
+    justification = centering, % centralizado
+    singlelinecheck = false,
+    skip          = 6pt % espaço entre figura e legenda
+}
+% Legendas de tabela: acima (ABNT) — lembre de colocar \caption antes de \includegraphics nas tabelas
+\captionsetup[table]{position=above}
+\captionsetup[figure]{position=below}
+
+% Redefine os nomes para português (ABNT)
+\AtBeginDocument{%
+    \renewcommand{\figurename}{Figura}%
+    \renewcommand{\tablename}{Tabela}%
+}
+
+% ==================================================
+% REFERÊNCIAS — ABNT NBR 6023:2018
+% ==================================================
+% Ordem alfabética (thebibliography já respeita a ordem manual;
+% o autor deve inserir em ordem)
+% Recuo de 1,25 cm
+% Espaçamento simples entre linhas, linha em branco entre entradas
+% Rótulo numérico oculto (ABNT usa lista sem número visível,
+% mas em pôsteres o número [1] ajuda na citação — mantemos)
+\AtBeginDocument{%
+    % Zera o título "Referências" dentro do postercard
+    % (o título do bloco já serve de cabeçalho)
+    \renewcommand{\refname}{\vspace{-3cm}}%
+    %
+    % Estilo ABNT para thebibliography
+    \renewenvironment{thebibliography}[1]{%
+        \list{\@biblabel{\@arabic\c@enumiv}}{%
+            \settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin by 1.25cm      % recuo ABNT
+            \itemindent -1.25cm
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}
+        }
+        \fontsize{22}{28}\selectfont           % fonte menor nas referências
+        \setlength{\itemsep}{0.2em}            % linha em branco entre entradas
+        \setlength{\parsep}{0pt}%
+    }{
+        \endlist
+    }
+}
+
+\endinput
