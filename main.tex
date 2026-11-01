@@ -23,7 +23,8 @@
 \subtitle{An Exploratory Analysis of INEP Data from 2011 to 2025}
 \author{Daniela Moraes, Ingrid Carvalho}
 \authoremail{al.daniela.moraes@impatech.edu.br, al.ingrid.carvalho@impatech.edu.br}
-\posterlogo{images/impatech.png}    % logo à esquerda
+\posterlogo{images/impatech(big).png}    % logo à esquerda
+\leftlogosize{12cm}{10cm}
 %\rightposterlogo{images/tex.png}    % logo à direita
 
 \begin{document}
@@ -35,40 +36,52 @@
 
 \begin{postercard}[yellow50, yellow50, black, black,black]{Introduction}
 Enrollment is the most basic measure of a school's size, and Brazil's
-\textit{Censo Escolar}, conducted every year by INEP, records it for the
+\textit{Censo Escolar}, conducted annually by INEP, records it for the
 country's basic education schools.
 
-A sudden drop or rise in a school's enrollment may signal a real event,
-such as a closure, a merger, or a crisis like the COVID-19 pandemic. But it
-may also point to inconsistencies in the official records. Telling these
-cases apart matters for anyone who relies on school-level data to study
-education in Brazil.
+A sudden drop or rise in a school's enrollment may reflect a real event,
+such as a closure, a merger, or a crisis like the COVID-19 pandemic, but it
+may also indicate inconsistencies in the official records. Distinguishing
+between these cases is essential for any study that relies on school-level
+data to examine education in Brazil.
 
 This poster presents ongoing undergraduate research on where, when, and in
-which kinds of schools these abrupt changes occur.
+which types of schools these abrupt changes occur.
 \end{postercard}
 
-\begin{postercard}[pink50, pink50, black, black,black]{Objective}
-To identify abrupt drops and rises in school enrollment in Brazil between
-2011 and 2025, to characterize the schools where they occur, and to examine
-how these changes evolve over time, including the pandemic years of 2020
-and 2021.
-\end{postercard}
+\begin{postercard}[pink50, pink50, black, black,black]{Data Sources and Preprocessing}
+Two complementary INEP sources covering 2011--2025 were combined: the
+\textit{Taxas de Rendimento Escolar}, which provide school-level approval,
+retention, and dropout rates, and the \textit{Censo Escolar} microdata,
+which provide absolute enrollment counts.
 
-\begin{postercard}[green50, green50, black, black,black]{Detecting Abrupt Changes}
-For each school, we compute the change in enrollment relative to the
-previous year, considering only schools with at least 30 students in the
-previous year. Within each year, the quartiles $Q_1$ and $Q_3$ and the
-interquartile range (IQR) define the limits $Q_1 - 1.5\,\mathrm{IQR}$ and
-$Q_3 + 1.5\,\mathrm{IQR}$. Schools beyond these limits are flagged as
-abrupt drops or rises.
+In the rate data, columns shifted in 2011--2014, inconsistent school and
+municipality codes, and missing values recorded as text were corrected. In
+the microdata, whose structure changes across years, equivalent columns were
+matched using INEP's data dictionaries, and all suggested renamings were
+reviewed manually. The two sources were then merged by school code and year,
+with the rate data as the reference, and missing information was completed
+using the other source.
+
+Rates were converted into student counts (enrollment $\times$ rate),
+municipality names were standardized using IBGE codes, and each stage was
+classified as Regular, Integral, or Mixed. Finally, 36 ``ghost'' schools
+were removed, null values and zeros were standardized, and enrollment was
+set to zero in 26 records with a single enrolled student and no recorded
+outcomes. The resulting database contains 27 variables.
+
+While screening the database for inconsistencies, abrupt increases and
+decreases in schools' enrollment were identified. Rather than treating these
+variations solely as data-quality issues, we examined them systematically,
+as they may reveal recurring patterns and the events behind them. This
+became the focus of the investigation presented in the following section.
 \end{postercard}
 
 % Figura fora dos cartões (\plainblock = bloco sem fundo/borda), com moldura igual à dos cartões
 \plainblock{%
 \begin{center}
 {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1mm}%
-\fcolorbox{black}{white}{\includegraphics[width=0.92\linewidth]{boxplot1.pdf}}}
+\fcolorbox{black}{white}{\includegraphics[width=0.92\linewidth]{boxplot2.pdf}}}
 \end{center}
 
 {\large\textbf{Figure.} Year-to-year change in enrollment, early elementary
@@ -77,8 +90,7 @@ quartiles; the dark marks are the yearly limits for drops and rises, and the
 dots are schools beyond them. The numbers at the ends are the share of
 schools flagged in each year.\par}
 
-\todo{interpretation of the figure}%
->>>>>>> Stashed changes
+\todo{interpretation of the figure}
 }
 
 \begin{postercard}[green50, green50, black, black,black]{Who Are the Flagged Schools?}
@@ -90,84 +102,6 @@ and location.
 
 \column{0.5}
 
-\begin{postercard}[orange50, orange50, black, black,black]{Data Sources}
-We combine two official INEP sources, which are complementary:
-\begin{itemize}
-  \item \textbf{Taxas de Rendimento Escolar:} school-level approval,
-  retention, and dropout rates. These are \textit{relative} values.
-  \item \textbf{Censo Escolar (microdata):} the \textit{absolute} number
-  of enrolled students, required to measure changes in school size.
-\end{itemize}
-Neither source is enough on its own: rates alone cannot show how large a
-school is, and counts alone say nothing about student flow.
-
-Both cover 2011 to 2025 and three stages of schooling: early elementary
-(AI), late elementary (AF), and high school (EM).
-\end{postercard}
-
-\begin{postercard}[green50, green50, black, black,black]{Step 1: Rate Data}
-INEP's yearly files were converted to CSV and stacked into one table
-(65 columns, 2011--2025). We checked it against the official files, matching
-schools by code, and fixed:
-\begin{itemize}
-  \item columns shifted in 2011--2014, after INEP changed column names and
-  order;
-  \item school and municipality codes with an inconsistent number of digits;
-  \item missing values written as text (\texttt{nan}, \texttt{<NA>}),
-  now proper nulls.
-\end{itemize}
-\end{postercard}
-
-\begin{postercard}[green50, green50, black, black,black]{Step 2: Census Microdata}
-Each year has over 200,000 schools, and the file structure changes: one
-table (2011--2022), an extra technical-courses file (2023--2024), and six
-tables (2025), when enrollment moved to its own table.
-
-We matched equivalent columns across years using INEP's data dictionaries.
-Every suggested rename was reviewed by hand, since name similarity produced
-false matches. We kept 15 columns: identifiers plus regular and full-time
-enrollment for each stage.
-\end{postercard}
-
-\begin{postercard}[green50, green50, black, black,black]{Step 3: Merging the Sources}
-The two sources were joined by school code and year, with the rate data as
-the reference. Only schools present in both were kept (one 2025 school with
-no match was dropped).
-
-The registration fields shared by both sources were compared, and gaps and
-mismatches were filled from the other source. Six enrollment variables
-(regular and full-time, for the three stages) were then added.
-\end{postercard}
-
-\begin{postercard}[orange50, orange50, black, black,black]{Final Database}
-Rates were converted into student counts: total enrollment (regular +
-full-time) $\times$ rate $/\,100$, rounded. Municipality names were
-standardized using IBGE codes, and each stage was classified as Regular,
-Integral, or Mixed by its share of full-time enrollment.
-
-The final database has \textbf{27 variables}. Checks at every step found
-\textbf{no duplicate school-year records}, and \textbf{141,754 schools}
-appear in all 15 years.
-\end{postercard}
-
-\begin{postercard}[pink50, pink50, black, black,black]{Treating Anomalies}
-\begin{itemize}
-  \item \textbf{36 ``ghost'' schools} were removed.
-  \item Nulls and zeros were standardized.
-  \item \textbf{26 records} had exactly 1 enrolled student but no approved,
-  failed, or dropped-out students. Their enrollment was set to 0, since
-  transfers or typing errors are possible but cannot be confirmed.
-  \item Schools with 100\% dropout were kept and flagged for specific
-  analyses.
-\end{itemize}
-\end{postercard}
-
-\begin{postercard}[green50, green50, black, black,black]{Evolution Over Time}
-We follow how the abrupt changes evolve from 2011 to 2025, with special
-attention to the pandemic years of 2020 and 2021.
-
-\todo{findings, with figures}
-\end{postercard}
 
 \end{columns}
 
