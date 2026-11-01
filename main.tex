@@ -48,14 +48,37 @@ This poster presents ongoing undergraduate research on where, when, and in
 which kinds of schools these abrupt changes occur.
 \end{postercard}
 
-\plainblock{
-    \posterfigure{0.9}{../analise/resultados/imagens/03_variacao_anual_REDE_TOTAL.png}%
-        {Arquitetura utilizada para o treinamento com LoRA.}{fig:lora}
-}
+\begin{postercard}[pink50, pink50, black, black,black]{Objective}
+To identify abrupt drops and rises in school enrollment in Brazil between
+2011 and 2025, to characterize the schools where they occur, and to examine
+how these changes evolve over time, including the pandemic years of 2020
+and 2021.
+\end{postercard}
 
-\plainblock{{\textbf{Historical Remark!}}
-The modern notion of compactness emerged gradually from the work of
-Bolzano, Weierstrass, Borel, and Lebesgue during the nineteenth century.
+\begin{postercard}[green50, green50, black, black,black]{Detecting Abrupt Changes}
+For each school, we compute the change in enrollment relative to the
+previous year, considering only schools with at least 30 students in the
+previous year. Within each year, the quartiles $Q_1$ and $Q_3$ and the
+interquartile range (IQR) define the limits $Q_1 - 1.5\,\mathrm{IQR}$ and
+$Q_3 + 1.5\,\mathrm{IQR}$. Schools beyond these limits are flagged as
+abrupt drops or rises.
+\end{postercard}
+
+% Figura fora dos cartões (\plainblock = bloco sem fundo/borda), com moldura igual à dos cartões
+\plainblock{%
+\begin{center}
+{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1mm}%
+\fcolorbox{black}{white}{\includegraphics[width=0.92\linewidth]{boxplot1.pdf}}}
+\end{center}
+
+{\large\textbf{Figure.} Year-to-year change in enrollment, early elementary
+(AI), 2012--2025 (1,120,290 school-year observations). Boxes show the
+quartiles; the dark marks are the yearly limits for drops and rises, and the
+dots are schools beyond them. The numbers at the ends are the share of
+schools flagged in each year.\par}
+
+\todo{interpretation of the figure}%
+>>>>>>> Stashed changes
 }
 
 \begin{postercard}[green50, green50, black, black,black]{Who Are the Flagged Schools?}
