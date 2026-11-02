@@ -1,0 +1,154 @@
+% ==================================================
+% Caminho do template (pasta separada do projeto)
+% Faz o LaTeX procurar a classe (.cls) e os pacotes (.sty)
+% também dentro de modelo-cartaz/
+% ==================================================
+\makeatletter
+\def\input@path{{./}{modelo-cartaz1/}}
+\makeatother
+
+\documentclass[palette=none,mode=light]{impaTeXPoster}
+
+% Procura imagens primeiro na pasta do projeto, depois na do template
+\graphicspath{{./}{images/}{modelo-cartaz1/}}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lipsum}
+
+% Marcador visível para o que ainda falta preencher (apagar quando terminar)
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[TO DO: #1]}}}
+
+\title{Abrupt Changes in School Enrollment in Brazilian Basic Education:}
+\subtitle{An Exploratory Analysis of INEP Data from 2011 to 2025}
+\author{Daniela Moraes, Ingrid Carvalho}
+\authoremail{al.daniela.moraes@impatech.edu.br, al.ingrid.carvalho@impatech.edu.br}
+\posterlogo{images/impatech(big).png}    % logo à esquerda
+\leftlogosize{12cm}{10cm}
+%\rightposterlogo{images/tex.png}    % logo à direita
+
+\begin{document}
+\maketitle
+
+\begin{columns}
+
+\column{0.5}
+
+\begin{postercard}[yellow50, yellow50, black, black,black]{Introduction}
+Enrollment is the most basic measure of a school's size, and Brazil's
+\textit{Censo Escolar}, conducted annually by INEP, records it for the
+country's basic education schools.
+
+A sudden drop or rise in a school's enrollment may reflect a real event,
+such as a closure, a merger, or a crisis like the COVID-19 pandemic, but it
+may also indicate inconsistencies in the official records. Distinguishing
+between these cases is essential for any study that relies on school-level
+data to examine education in Brazil.
+
+This poster presents ongoing undergraduate research on where, when, and in
+which types of schools these abrupt changes occur.
+\end{postercard}
+
+\begin{postercard}[pink50, pink50, black, black,black]{Data Sources and Preprocessing}
+Two complementary INEP sources covering 2011--2025 were combined: the
+\textit{Taxas de Rendimento Escolar}, which provide school-level approval,
+retention, and dropout rates, and the \textit{Censo Escolar} microdata,
+which provide absolute enrollment counts.
+
+In the rate data, columns shifted in 2011--2014, inconsistent school and
+municipality codes, and missing values recorded as text were corrected. In
+the microdata, whose structure changes across years, equivalent columns were
+matched using INEP's data dictionaries, and all suggested renamings were
+reviewed manually. The two sources were then merged by school code and year,
+with the rate data as the reference, and missing information was completed
+using the other source.
+
+Rates were converted into student counts (enrollment $\times$ rate),
+municipality names were standardized using IBGE codes, and each stage was
+classified as Regular, Integral, or Mixed. Finally, 36 ``ghost'' schools
+were removed, null values and zeros were standardized, and enrollment was
+set to zero in 26 records with a single enrolled student and no recorded
+outcomes. The resulting database contains 27 variables.
+
+While screening the database for inconsistencies, abrupt increases and
+decreases in schools' enrollment were identified. Rather than treating these
+variations solely as data-quality issues, we examined them systematically,
+as they may reveal recurring patterns and the events behind them. This
+became the focus of the investigation presented in the following section.
+\end{postercard}
+
+% Figura fora dos cartões (\plainblock = bloco sem fundo/borda), com moldura igual à dos cartões
+\plainblock{%
+\vspace{-1.9cm}
+\begin{center}
+{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1mm}%
+\fcolorbox{black}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxrule\relax]{boxplot2.pdf}}}
+\end{center}
+
+{\large\textbf{Figure.} Year-to-year change in enrollment, early elementary
+(AI), 2012--2025 (1,120,290 school-year observations). Boxes show the
+quartiles; the dark marks are the yearly limits for drops and rises, and the
+dots are schools beyond them. The numbers at the ends are the share of
+schools flagged in each year.\par}
+
+\todo{interpretation of the figure}
+}
+
+\begin{postercard}[green50, green50, black, black,black]{Who Are the Flagged Schools?}
+The flagged schools are then characterized by region, state, school network,
+and location.
+
+\todo{findings, with figures}
+\end{postercard}
+
+\column{0.5}
+
+\plainblock{%
+\vspace{-1.9cm}
+\begin{center}
+{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1mm}%
+\fcolorbox{black}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxrule\relax]{grafico_combinado.pdf}}}
+\end{center}
+
+{\large\textbf{Figure.}Share of schools with a sharp drop or a sharp increase in enrollment,
+by school network and stage, 2012–2025. Color indicates the type of change (sharp drop or
+sharp increase) and line style indicates the network (solid: public; dashed: private).
+Limits are computed within each year.\par}
+
+}
+
+\begin{postercard}[orange50, orange50, black, black,black]{Conclusion}
+Enrollment is the most basic measure of a school's size, and Brazil's
+\textit{Censo Escolar}, conducted annually by INEP, records it for the
+country's basic education schools.
+
+A sudden drop or rise in a school's enrollment may reflect a real event,
+such as a closure, a merger, or a crisis like the COVID-19 pandemic, but it
+may also indicate inconsistencies in the official records. Distinguishing
+between these cases is essential for any study that relies on school-level
+data to examine education in Brazil.
+
+This poster presents ongoing undergraduate research on where, when, and in
+which types of schools these abrupt changes occur.
+\end{postercard}
+
+\end{columns}
+
+\posterfooter{https://github.com/impaTeX/modelo-cartaz/}{%
+
+    \textbf{{\LARGE References:}}
+
+    \begin{thebibliography}{99}
+    \bibitem{censo}
+    INEP.
+    \textit{Censo Escolar da Educa\c{c}\~ao B\'asica} (microdata).
+    Bras\'ilia: Instituto Nacional de Estudos e Pesquisas Educacionais An\'isio Teixeira.
+
+    \bibitem{taxas}
+    INEP.
+    \textit{Taxas de Rendimento Escolar}.
+    Bras\'ilia: Instituto Nacional de Estudos e Pesquisas Educacionais An\'isio Teixeira.
+    \end{thebibliography}
+}
+
+\end{document}
