@@ -79,9 +79,10 @@ became the focus of the investigation presented in the following section.
 
 % Figura fora dos cartões (\plainblock = bloco sem fundo/borda), com moldura igual à dos cartões
 \plainblock{%
+\vspace{-1.9cm}
 \begin{center}
 {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1mm}%
-\fcolorbox{black}{white}{\includegraphics[width=0.92\linewidth]{boxplot2.pdf}}}
+\fcolorbox{black}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxrule\relax]{boxplot2.pdf}}}
 \end{center}
 
 {\large\textbf{Figure.} Year-to-year change in enrollment, early elementary
@@ -102,6 +103,49 @@ and location.
 
 \column{0.5}
 
+\plainblock{%
+\vspace{-1.9cm}
+\begin{center}
+{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1mm}%
+\fcolorbox{black}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxrule\relax]{01_de_escolas_com_queda_e_com_aumento_brusco_por_REDE.pdf}}}
+\end{center}
+
+{\large\textbf{Figure.}Share of schools with a sharp drop or a sharp increase in enrollment,
+by school network and stage, 2012–2025. Color indicates the type of change (sharp drop or
+sharp increase) and line style indicates the network (solid: public; dashed: private).
+Limits are computed within each year.\par}
+
+}
+
+\plainblock{%
+\vspace{-3.5cm}
+\begin{center}
+{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1mm}%
+\fcolorbox{black}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxrule\relax]{03b_variacao_anual_por_etapa_REDE_TOTAL.pdf}}}
+\end{center}
+
+{\large\textbf{Figure.} Annual change in enrollment by school network and stage, 2012–2025.
+Bars show the percentage change in total enrollment relative to the previous year, with public schools
+(Federal, State, and Municipal) combined. Shaded areas mark 2019–2022. Early elementary (AI), late elementary
+(AF), and high school (EM) are shown in separate panels on a common scale.
+par}
+
+}
+
+\begin{postercard}[orange50, orange50, black, black,black]{Conclusion}
+Enrollment is the most basic measure of a school's size, and Brazil's
+\textit{Censo Escolar}, conducted annually by INEP, records it for the
+country's basic education schools.
+
+A sudden drop or rise in a school's enrollment may reflect a real event,
+such as a closure, a merger, or a crisis like the COVID-19 pandemic, but it
+may also indicate inconsistencies in the official records. Distinguishing
+between these cases is essential for any study that relies on school-level
+data to examine education in Brazil.
+
+This poster presents ongoing undergraduate research on where, when, and in
+which types of schools these abrupt changes occur.
+\end{postercard}
 
 \end{columns}
 
